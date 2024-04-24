@@ -6,7 +6,7 @@
 /*   By: mcid-baq <mcidbaquerizo@gmail.com>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/11 11:31:34 by mcid-baq          #+#    #+#             */
-/*   Updated: 2023/12/22 13:44:56 by mcid-baq         ###   ########.fr       */
+/*   Updated: 2024/04/16 16:24:51 by mcid-baq         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ void	movement(t_list *list, int y, int x)
 	list->pxc = x;
 	list->img->character->instances[0].x = x * 64;
 	list->img->character->instances[0].y = y * 64;
-	ft_printf("Numero de pasos: %d\n", ++list->nmov);
+	ft_printf("Steps: %d\n", ++list->nmov);
 	if (list->sm[y][x] == 'C')
 		check_collectible(list, y, x);
 	else if (list->sm[y][x] == 'E' && list->ccurrent == list->nc)
@@ -48,7 +48,7 @@ void	movement(t_list *list, int y, int x)
 		free(list->img);
 		free_map(list);
 		free(list);
-		ft_printf("HAS GANADO EL JUEGO");
+		ft_printf("YOU WON\n");
 		exit(0);
 	}
 }

@@ -1,21 +1,21 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   so_long.c                                          :+:      :+:    :+:   */
+/*   so_long_bonus.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mcid-baq <mcidbaquerizo@gmail.com>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/28 13:34:43 by mcid-baq          #+#    #+#             */
-/*   Updated: 2024/04/15 19:06:25 by mcid-baq         ###   ########.fr       */
+/*   Updated: 2024/04/16 18:13:21 by mcid-baq         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "so_long.h"
+#include "so_long_bonus.h"
 
-// void	ft_leaks(void)
-// {
-// 	system("leaks so_long");
-// }
+void	ft_leaks(void)
+{
+	system("leaks so_long");
+}
 
 t_list	*init_value(void)
 {
@@ -42,7 +42,7 @@ int32_t	main(int argc, char **argv)
 {
 	t_list	*list;
 	
-	// atexit(ft_leaks);
+	atexit(ft_leaks);
 	if (argc != 2)
 	{
 		printf("ERROR, Invalid number of arguments\n");

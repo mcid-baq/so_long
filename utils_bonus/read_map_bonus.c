@@ -1,16 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   read_map.c                                         :+:      :+:    :+:   */
+/*   read_map_bonus.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mcid-baq <mcidbaquerizo@gmail.com>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/07 15:53:00 by mcid-baq          #+#    #+#             */
-/*   Updated: 2024/04/16 16:24:19 by mcid-baq         ###   ########.fr       */
+/*   Updated: 2024/04/16 19:35:58 by mcid-baq         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../so_long.h"
+#include "../so_long_bonus.h"
 
 void	collectibles(char c, t_list *list)
 {
@@ -20,6 +20,8 @@ void	collectibles(char c, t_list *list)
 		list->ne++;
 	else if (c == 'P')
 		list->np++;
+	else if (c == 'X')
+		list->nx++;
 }
 
 void	reading_map_lines(int m, int i, t_list *list)
@@ -32,9 +34,9 @@ void	reading_map_lines(int m, int i, t_list *list)
 		if (l[ft_strlen(l) - 1] == '\n')
 			l[ft_strlen(l) - 1] = '\0';
 		if ((int)ft_strlen(l) != i)
-			print_error("Fail map length", list);
-		if (checking_chr(l) || l[0] != '1' || l[i - 1] != '1')
-			print_error("Fail var", list);
+			print_error("Fallo longitud mapa", list);
+		if (checking_chr_bonus(l) || l[0] != '1' || l[i - 1] != '1')
+			print_error("Fallo variables", list);
 		i = 0;
 		while (l[i] != '\0')
 		{
@@ -43,12 +45,12 @@ void	reading_map_lines(int m, int i, t_list *list)
 		}
 		free(l);
 		if (list->ne > 1 || list->np > 1)
-			print_error("Fail map!", list);
+			print_error("Fallo mapa!", list);
 		list->nlines++;
 		l = get_next_line(m);
 	}
-	if (list->nc < 1 || list->ne != 1 || list->np != 1)
-		print_error("Fail elements numbers!!", list);
+	if (list->nc < 1 || list->ne != 1 || list->np != 1 || list->nx < 1)
+		print_error("Fallo cantidad elementos!!", list);
 }
 
 void	saving_map(char **argv, t_list *list)
@@ -59,13 +61,13 @@ void	saving_map(char **argv, t_list *list)
 	m = open(argv[1], O_RDONLY);
 	list->sm = malloc(sizeof(char *) * (list->nlines + 1));
 	if (!list->sm)
-		print_error("Fail mapa", list);
+		print_error("Fallo mapa", list);
 	in = 0;
 	while (in < list->nlines)
 	{
 		list->sm[in] = get_next_line(m);
 		if (!list->sm[in])
-			print_error("Fail lista!", list);
+			print_error("Fallo lista!", list);
 		if (list->sm[in][list->llines] == '\n')
 			list->sm[in][list->llines] = '\0';
 		in++;
@@ -75,7 +77,7 @@ void	saving_map(char **argv, t_list *list)
 	while (list->sm[list->nlines - 1][in] == '1')
 		in++;
 	if (list->sm[list->nlines - 1][in] != '\0')
-		print_error("Fail lineas mapa", list);
+		print_error("Fallo lineas mapa", list);
 }
 
 void	character(t_list *list)
@@ -98,10 +100,11 @@ void	character(t_list *list)
 		}
 		i++;
 	}
-	fill(list, list->pxc, list->pyc);
-	if (fill_works(list))
+	fill_bonus(list, list->pxc, list->pyc);
+	if (fill_works_bonus(list))
 	{
 		print_error("No Way Jose!", list);
+		exit (1);
 	}
 }
 
